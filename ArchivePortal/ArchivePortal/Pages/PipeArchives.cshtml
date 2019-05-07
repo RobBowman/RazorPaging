@@ -1,0 +1,87 @@
+﻿@page
+@model ArchivePortal.Pages.PipeArchivesModel
+@{
+    ViewData["Title"] = "PipeArchives";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>Pipeline Archives</h1>
+
+<form sp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-default" /> |
+            <a asp-page="./PipeArchives">Back to full List</a>
+        </p>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-page="./PipeArchives" asp-route-sortOrder="@ViewData["CreatedOnSort"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Created On
+                </a>
+            </th>
+            <th>
+                <a asp-page="./PipeArchives" asp-route-sortOrder="@ViewData["RcvLocSort"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Rcv Location
+                </a>
+            </th>
+            <th>
+                <a asp-page="./PipeArchives" asp-route-sortOrder="@ViewData["RcvFileSort"]"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]">
+                    Rcv Filename
+                </a>
+            </th>
+            <th>
+                Message Body
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.PipeArcPagList)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceiveLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceivedFilename)
+            </td>
+            <td>
+                <a asp-page="./MessageDetail" asp-route-pipelineArchivesId="@item.PipelineArchivesId">@Html.DisplayFor(modelItem => item.BodyIntro)</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+@{
+    var prevDisabled = !Model.PipeArcPagList.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.PipeArcPagList.HasNextPage ? "disabled" : "";
+}
+
+<a asp-page="./PipeArchives"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageIndex="@(Model.PipeArcPagList.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @prevDisabled">
+    Previous
+</a>
+<a asp-page="./PipeArchives"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageIndex="@(Model.PipeArcPagList.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-default @nextDisabled">
+    Next
+</a>
+

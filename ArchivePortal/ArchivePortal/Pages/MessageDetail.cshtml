@@ -1,0 +1,12 @@
+﻿@page "{pipelineArchivesId}"
+@model ArchivePortal.Pages.MessageDetailModel
+@{
+    ViewData["Title"] = "MessageDetail";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h1>MessageDetail</h1>
+
+<div>
+    Body: @Model.FullMsg
+</div>

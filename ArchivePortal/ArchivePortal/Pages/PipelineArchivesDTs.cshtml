@@ -1,0 +1,30 @@
+﻿@page
+@model ArchivePortal.Pages.PipelineArchivesDTsModel
+@{
+    ViewData["Title"] = "PipelineArchives";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<h2>Pipeline Archives</h2>
+<div id="KoSection">
+    <span>
+        <button type="button" class="btn btn-default btn-md refresh-button" data-bind="click: get">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Refresh
+        </button>
+    </span>
+
+</div>
+
+<img src="~/images/ajax-loader.gif" id="loading-indicator" style="width:25px;height:25px" />
+<table class="table" id="pipelinearchives"></table>
+
+@section Scripts {
+    <script src="~/datatables/js/jquery.dataTables.js"></script>
+    <script src="~/datatables/js/dataTables.bootstrap4.js"></script>
+    <link href="~/datatables/css/dataTables.bootstrap4.css" rel="stylesheet" />
+    <script src="~/knockout/knockout-debug.js"></script>
+
+    <script src="~/js/PipelineArchives.js"></script>
+
+}
+
